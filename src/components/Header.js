@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import "./styles/Header.scss"
 
 const Header = () => {
     return (
-        <header>
-            <Link to="/">
+        <header className="Header">
+            <Link to="/" className="Header__link" >
                 Home
             </Link>
-            <Link to="/todo">
+            <Link to="/todo" className="Header__link" >
                 Todos
             </Link>
         </header>

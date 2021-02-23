@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react'
 import AppContext from "../context/AppContext"
+import "../styles/Home.scss"
 
 const Home = () => {
     const [form, setForm] = useState({
         title: "",
         description: ""
     })
-    const { addTodo, state } = useContext(AppContext)
-    const { activities } = state
+    const [status, setStatus] = useState("")
+    const { addTodo } = useContext(AppContext)
 
     const handleChange = (e) => {
         setForm({
@@ -15,6 +16,7 @@ const Home = () => {
             [e.target.name]: e.target.value,
             id: Math.random()
         })
+        setStatus("")
     }
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -23,18 +25,34 @@ const Home = () => {
             title: "",
             description: ""
         })
+        setStatus("Added todo")
     }
-    console.log(state)
 
     return (
-        <div>
-            <h2>add todo</h2>
-            <form onSubmit={handleSubmit}>
-                <input required value={form.title} type="text" onChange={handleChange} name="title"/>
-                <input value={form.description} type="text" onChange={handleChange} name="description"/>
-                <button type="submit">Agregar</button>
+        <>
+            <div className="color__overlay"></div>
+            <form onSubmit={handleSubmit} className="Form">
+                <h2 className="Form__title">Add todo</h2>
+                <input 
+                className="Form__input" 
+                required 
+                placeholder="Title"
+                value={form.title} 
+                type="text" 
+                onChange={handleChange} 
+                name="title"/>
+                <input 
+                className="Form__input" 
+                value={form.description} 
+                required
+                placeholder="Description"
+                type="text" 
+                onChange={handleChange} 
+                name="description"/>
+                <button className="Form__button" type="submit">Agregar</button>
+                <span className="Form__status">{status}</span>
             </form>
-        </div>
+        </>
     )
 }
 
